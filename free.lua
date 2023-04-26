@@ -1,5 +1,5 @@
 --PROJECT RAIN OPEN SOURCE EDITION. FUCK YOU CITAM marshadow#2336 dubs
-
+--PROJECT RAIN DB: https://pastebin.com/raw/7Tt1abfj
 
 pcall(function()
 	task.wait(2.5)
