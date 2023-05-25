@@ -1,4 +1,5 @@
 
+
 xpcall(function()
 
 	local Lighting = game:GetService("Lighting")
@@ -759,6 +760,28 @@ xpcall(function()
 		end)
 	end)
 
+
+    getgenv().autosprintenabled = false;
+    addToggle("Auto Sprint","",false,"Misc",function(enabled)
+        pcall(function()
+            getgenv().autosprintenabled = enabled;
+        end)
+    end)
+	local keypressed = false;
+    game:GetService("UserInputService").InputBegan:Connect(function(k,t)
+		pcall(function() 
+            if getgenv().autosprintenabled and not t and k.KeyCode == Enum.KeyCode.W and not keypressed then
+				keypressed = true;
+				task.wait()
+				keyrelease(0x57)
+				task.wait()
+				keypress(0x57)
+				task.wait(0.07)
+				keypressed = false;
+			end 
+        end)
+	end)
+
 	addToggle("Int Farm","",false,"Misc",function(enabled)
 		getgenv().INTFARMENABLED = enabled;
 		pcall(function()
@@ -779,7 +802,7 @@ xpcall(function()
 	end)
 
 	atModOffice = false
-    --[[tabs["Misc"]:CreateButton("Mod Office",function()
+    tabs["Misc"]:CreateButton("Mod Office",function()
         if not Lighting:FindFirstChild("FragmentSky") then
             Notify("You must be in Fragments of Self to teleport")
             return
@@ -801,7 +824,7 @@ xpcall(function()
                 atModOffice = false
             end
         end,warn)
-    end)]]
+    end)
 
 	--
 
