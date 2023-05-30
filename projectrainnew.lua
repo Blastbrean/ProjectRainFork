@@ -1,7 +1,23 @@
 
 
 xpcall(function()
-
+	pcall(function()
+		local uis = game:GetService("UserInputService")
+		uis.InputBegan:Connect(function(input,t)
+			pcall(function()
+				if input.UserInputType == Enum.UserInputType.MouseButton1 then
+					for i, v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.LeaderboardGui.MainFrame.ScrollingFrame:GetChildren()) do
+						if not v:FindFirstChild("Player") then continue; end
+						local Player = v.Player;
+	
+						if Player.TextTransparency > 0 then
+							while v.Player.TextTransparency > 0 do workspace.CurrentCamera.CameraSubject = Players[v.Player.Text].Character task.wait() end
+						end
+					end
+				end
+			end)
+		end)
+	end)
 	local Lighting = game:GetService("Lighting")
 
 	local GetChildren, GetDescendants = game.GetChildren, game.GetDescendants
