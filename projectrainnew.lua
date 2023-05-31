@@ -1124,4 +1124,5 @@ xpcall(function()
 		
 	end)
 	LoadingText:Destroy()
+		Notify("To remove this notification. Click it. To open tabs. right click them " .. player.Name,9e9)
 end,warn)
