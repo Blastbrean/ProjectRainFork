@@ -406,7 +406,7 @@ xpcall(function()
 					if uis:IsKeyDown(Enum.KeyCode.Space) then
 						travel += Vector3.new(0,2,0);
 					end	
-					if UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
+					if uis:IsKeyDown(Enum.KeyCode.LeftControl) then
 						travel -= Vector3.new(0,2,0);
                 			end
 					bv.Velocity = travel.Unit * library.flags["Flight Speed"]
