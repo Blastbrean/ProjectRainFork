@@ -403,6 +403,12 @@ xpcall(function()
 					if uis:IsKeyDown(Enum.KeyCode.A) then
 						travel -= (workspace.CurrentCamera.CFrame.RightVector.Unit) * library.flags["Flight Speed"]
 					end
+					if uis:IsKeyDown(Enum.KeyCode.Space) then
+						travel += vector3.new(0,2,0);
+					end	
+					if UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
+						travel -= vector3.new(0,2,0);
+                			end
 					bv.Velocity = travel.Unit * library.flags["Flight Speed"]
 				end
 				bv.MaxForce = Vector3.new(9e9,9e9,9e9)
