@@ -1036,7 +1036,7 @@ xpcall(function()
 			local renderstepped
 			renderstepped = runservice.Heartbeat:Connect(function()
 				local suc, err = pcall(function() 
-					if drop then
+					if drop and drop.Parent.Parent ~= nil and drop.Parent ~= nil  then
 						local drop_pos, drop_onscreen = camera:WorldToViewportPoint(drop.Position)
 						if library.flags["Chests"] and drop_onscreen  then
 							dropesp.Position = Vector2.new(drop_pos.X, drop_pos.Y)
