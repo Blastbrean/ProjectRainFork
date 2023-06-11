@@ -9,7 +9,7 @@ xpcall(function()
 					for i, v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.LeaderboardGui.MainFrame.ScrollingFrame:GetChildren()) do
 						if not v:FindFirstChild("Player") then continue; end
 						local Player = v.Player;
-	
+
 						if Player.TextTransparency > 0 then
 							while v.Player.TextTransparency > 0 do workspace.CurrentCamera.CameraSubject = Players[v.Player.Text].Character task.wait() end
 						end
@@ -114,7 +114,7 @@ xpcall(function()
 	LoadingText.Text = "Authorizing..."
 	local starttime = tick();
 	local authorized = false;
-    authorized = true;
+	authorized = true;
 	local uilib = game:HttpGet("https://raw.githubusercontent.com/MimiTest2/projectrainfree/main/uilib.lua")
 	local _,esplib = pcall(loadstring(game:HttpGet(("https://raw.githubusercontent.com/MimiTest2/projectrainfree/main/esplib.lua"),true)))
 
@@ -337,9 +337,9 @@ xpcall(function()
 		end
 		return #parts
 	end
-    local kownertick = false;
+	local kownertick = false;
 	local bv;
-    function getallequippedtools()
+	function getallequippedtools()
 		local tbl = {}
 		for i, v in pairs(plr.Character:GetChildren()) do
 			if v:IsA("Tool") then
@@ -349,39 +349,39 @@ xpcall(function()
 		return tbl
 	end
 	local CON_FUNCTIONS = {
-        KnockedOwnership = function()
-            pcall(function()
-                if plr.Character.Torso:FindFirstChild("RagdollAttach") and plr.Character.Humanoid.Health < 10 then
-                    if #getallequippedtools() > 1 then
-                        plr.Character.Humanoid:UnequipTools()
-                    end
-                    if backpack:FindFirstChild("Weapon") then
-                        backpack["Weapon"].Parent = plr.Character
-                    else
-                        plr.Character:FindFirstChild("Weapon").Parent = backpack
-                    end
-                    kownertick = true
-                else
-                    if kownertick then
-                        kownertick = false
-                        plr.Character.Humanoid:UnequipTools()
-                        if backpack:FindFirstChild("Weapon") then
-                            backpack["Weapon"].Parent = plr.Character
-                        end
-                        task.wait(0.5)
-                        if backpack:FindFirstChild("Weapon") then
-                            backpack["Weapon"].Parent = plr.Character
-                        else
-                            plr.Character:FindFirstChild("Weapon").Parent = backpack
-                        end
-                        task.wait(0.5)
-                        if backpack:FindFirstChild("Weapon") then
-                            backpack["Weapon"].Parent = plr.Character
-                        end
-                    end
-                end
-            end)
-        end,
+		KnockedOwnership = function()
+			pcall(function()
+				if plr.Character.Torso:FindFirstChild("RagdollAttach") and plr.Character.Humanoid.Health < 10 then
+					if #getallequippedtools() > 1 then
+						plr.Character.Humanoid:UnequipTools()
+					end
+					if backpack:FindFirstChild("Weapon") then
+						backpack["Weapon"].Parent = plr.Character
+					else
+						plr.Character:FindFirstChild("Weapon").Parent = backpack
+					end
+					kownertick = true
+				else
+					if kownertick then
+						kownertick = false
+						plr.Character.Humanoid:UnequipTools()
+						if backpack:FindFirstChild("Weapon") then
+							backpack["Weapon"].Parent = plr.Character
+						end
+						task.wait(0.5)
+						if backpack:FindFirstChild("Weapon") then
+							backpack["Weapon"].Parent = plr.Character
+						else
+							plr.Character:FindFirstChild("Weapon").Parent = backpack
+						end
+						task.wait(0.5)
+						if backpack:FindFirstChild("Weapon") then
+							backpack["Weapon"].Parent = plr.Character
+						end
+					end
+				end
+			end)
+		end,
 		Flight = function()
 			xpcall(function()
 				local hrp, hum = plr and plr.Character and getRoot(), plr and plr.Character and plr.Character:FindFirstChildOfClass("Humanoid")
@@ -408,7 +408,7 @@ xpcall(function()
 					end	
 					if uis:IsKeyDown(Enum.KeyCode.LeftControl) then
 						travel -= Vector3.new(0,2,0);
-                			end
+					end
 					bv.Velocity = travel.Unit * library.flags["Flight Speed"]
 				end
 				bv.MaxForce = Vector3.new(9e9,9e9,9e9)
@@ -551,8 +551,8 @@ xpcall(function()
 		["Settings"] = window:CreateTab("Settings"),
 		["Temp"] = window:CreateTab('')
 	}
-    tabs["Settings"]:CreateButton("Save Config",function()
-        pcall(function()
+	tabs["Settings"]:CreateButton("Save Config",function()
+		pcall(function()
 			local flags = library.flags
 			for i, v in pairs(flags) do
 				flags[i] = tostring(v)
@@ -560,9 +560,9 @@ xpcall(function()
 			local e = game:GetService("HttpService"):JSONEncode(flags)
 			writefile("config.txt",e)
 		end)
-    end)
-    tabs["Settings"]:CreateButton("Load Config",function()
-        pcall(function()  
+	end)
+	tabs["Settings"]:CreateButton("Load Config",function()
+		pcall(function()  
 			local fixed = game:GetService("HttpService"):JSONDecode(readfile("config.txt"))
 			for i, v in pairs(fixed) do
 				if string.match(tostring(v),"Enum.KeyCode.") then
@@ -571,10 +571,10 @@ xpcall(function()
 					fixed[i] = false
 				elseif v == "true" then
 					fixed[i] = true;
-                elseif tonumber(string.split(tostring(v),'"')[1]) then
-                    fixed[i] = tonumber(string.split(tostring(v),'"')[1]);
-                end			
-            end
+				elseif tonumber(string.split(tostring(v),'"')[1]) then
+					fixed[i] = tonumber(string.split(tostring(v),'"')[1]);
+				end			
+			end
 			library.flags = fixed
 			for i,v in pairs(library.items) do
 				pcall(function()
@@ -582,7 +582,7 @@ xpcall(function()
 				end)
 			end
 		end)
-    end)
+	end)
 	tabs["Temp"]:CreateToggle("",false,function() end):CreateKeypicker("UI",Enum.KeyCode.RightControl,function(key)
 		library.openkey = key;
 	end)
@@ -625,9 +625,9 @@ xpcall(function()
 		local slider = tabs[tab]:CreateSlider(name,min,val,max,callback,flag)
 		library.items[flag] = slider;
 	end
-    --        name,funcname,default,tab,togglef,keypicker,keypickerdefault,keypickername
+	--        name,funcname,default,tab,togglef,keypicker,keypickerdefault,keypickername
 	addToggle("Fastwalk","Speed",false,"Movement",function(e) end,true,Enum.KeyCode.F3,"Fastwalk");
-    addToggle("Knocked Ownership","KnockedOwnership",false,"Misc",function(e) end,false,nil,nil);
+	addToggle("Knocked Ownership","KnockedOwnership",false,"Misc",function(e) end,false,nil,nil);
 	addToggle("Noclip","Noclip",false,"Movement",function(e)
 		if not e then
 			for i, v in pairs(partids) do
@@ -647,12 +647,12 @@ xpcall(function()
 			bv.MaxForce = Vector3.new(4000000, 4000000, 4000000)
 			bv.velocity = Vector3.new(0,0,0)
 		else
-            if bv then
-			bv:Destroy();
-			getgenv().UnProtectInstance(bv);
-			task.wait()
-			bv = nil;
-            end
+			if bv then
+				bv:Destroy();
+				getgenv().UnProtectInstance(bv);
+				task.wait()
+				bv = nil;
+			end
 		end
 	end,true,Enum.KeyCode.F4,"Flight");
 	addSlider("Movement","Walk Speed",1,150,250,"Walk Speed");
@@ -783,16 +783,16 @@ xpcall(function()
 	end)
 
 
-    getgenv().autosprintenabled = false;
-    addToggle("Auto Sprint","",false,"Misc",function(enabled)
-        pcall(function()
-            getgenv().autosprintenabled = enabled;
-        end)
-    end)
+	getgenv().autosprintenabled = false;
+	addToggle("Auto Sprint","",false,"Misc",function(enabled)
+		pcall(function()
+			getgenv().autosprintenabled = enabled;
+		end)
+	end)
 	local keypressed = false;
-    game:GetService("UserInputService").InputBegan:Connect(function(k,t)
+	game:GetService("UserInputService").InputBegan:Connect(function(k,t)
 		pcall(function() 
-            if getgenv().autosprintenabled and not t and k.KeyCode == Enum.KeyCode.W and not keypressed then
+			if getgenv().autosprintenabled and not t and k.KeyCode == Enum.KeyCode.W and not keypressed then
 				keypressed = true;
 				task.wait()
 				keyrelease(0x57)
@@ -801,7 +801,7 @@ xpcall(function()
 				task.wait(0.07)
 				keypressed = false;
 			end 
-        end)
+		end)
 	end)
 
 	addToggle("Int Farm","",false,"Misc",function(enabled)
@@ -824,29 +824,29 @@ xpcall(function()
 	end)
 
 	atModOffice = false
-    tabs["Misc"]:CreateButton("Mod Office",function()
-        if not Lighting:FindFirstChild("FragmentSky") then
-            Notify("You must be in Fragments of Self to teleport")
-            return
-        end
+	tabs["Misc"]:CreateButton("Mod Office",function()
+		if not Lighting:FindFirstChild("FragmentSky") then
+			Notify("You must be in Fragments of Self to teleport")
+			return
+		end
 
-        xpcall(function()
-            local char, hrp = plr and plr.Character, plr and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart")
-            if not plr or not char or not hrp then return end
-            if not atModOffice then
-                xpcall(function()
-                    hrp.CFrame = CFrame.new(40000,40012.5,40000)
-                end,warn)
-                Notify("Click the Mod Office button again to return to Fragments of Self spawn")
-                atModOffice = true
-            else
-                xpcall(function()
-                    hrp.CFrame = CFrame.new(2910.23046875, 1133.0269775390625, 1474.47900390625)
-                end,warn)
-                atModOffice = false
-            end
-        end,warn)
-    end)
+		xpcall(function()
+			local char, hrp = plr and plr.Character, plr and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart")
+			if not plr or not char or not hrp then return end
+			if not atModOffice then
+				xpcall(function()
+					hrp.CFrame = CFrame.new(40000,40012.5,40000)
+				end,warn)
+				Notify("Click the Mod Office button again to return to Fragments of Self spawn")
+				atModOffice = true
+			else
+				xpcall(function()
+					hrp.CFrame = CFrame.new(2910.23046875, 1133.0269775390625, 1474.47900390625)
+				end,warn)
+				atModOffice = false
+			end
+		end,warn)
+	end)
 
 	--
 
@@ -855,13 +855,13 @@ xpcall(function()
 			if enabled then
 				while library.flags["No Kill Bricks"] do
 					pcall(function()
-                        if (workspace:FindFirstChild("Layer2Floor1")) then
-						    for i, v in pairs(workspace.Layer2Floor1:GetChildren()) do
-						    	if v.Name == "SuperWall" then
-						    		v.CanTouch = false;
-						    	end
-						    end
-                        end
+						if (workspace:FindFirstChild("Layer2Floor1")) then
+							for i, v in pairs(workspace.Layer2Floor1:GetChildren()) do
+								if v.Name == "SuperWall" then
+									v.CanTouch = false;
+								end
+							end
+						end
 					end)
 					pcall(function()
 						for i, v in pairs(workspace:GetChildren()) do
@@ -874,13 +874,13 @@ xpcall(function()
 				end
 			else
 				pcall(function()
-                    if (workspace:FindFirstChild("Layer2Floor1")) then
-					    for i, v in pairs(workspace.Layer2Floor1:GetChildren()) do
-					    	if v.Name == "SuperWall" then
-					    		v.CanTouch = true;
-					    	end
-					    end
-                    end
+					if (workspace:FindFirstChild("Layer2Floor1")) then
+						for i, v in pairs(workspace.Layer2Floor1:GetChildren()) do
+							if v.Name == "SuperWall" then
+								v.CanTouch = true;
+							end
+						end
+					end
 				end)
 				pcall(function()
 					for i, v in pairs(KillBrickFolder:GetChildren()) do
@@ -904,48 +904,47 @@ xpcall(function()
 	end)
 
 	--
-	LPH_NO_VIRTUALIZE(function() 
-        xpcall(function()
-			task.spawn(function()
-				xpcall(function()
-					addToggle("Enabled","",true,"ESP",function(val)
-						xpcall(function()
-							esplib.options.enabled = val
-						end,warn)
-					end)
-					--local mobesptoggle = espsec:AddToggle("Mobs",true, function(val) end)
+	xpcall(function()
+		task.spawn(function()
+			xpcall(function()
+				addToggle("Enabled","",true,"ESP",function(val)
+					xpcall(function()
+						esplib.options.enabled = val
+					end,warn)
+				end)
+				--local mobesptoggle = espsec:AddToggle("Mobs",true, function(val) end)
 
-					addToggle("Distance","",true,"ESP",function(val)
-						xpcall(function()
-							esplib.options.distance = val
-						end,warn)
-					end)
+				addToggle("Distance","",true,"ESP",function(val)
+					xpcall(function()
+						esplib.options.distance = val
+					end,warn)
+				end)
 
-					addToggle("Arrows","",false,"ESP",function(val)
-						xpcall(function()
-							esplib.options.outOfViewArrows = val
-						end,warn)
-					end)
-
-
-					addToggle("Health","",true,"ESP",function(val)
-						xpcall(function()
-							esplib.options.healthBars = val
-						end,warn)
-					end)
-
-					addSlider("ESP","Arrow Size",1,10,48,"EspArrowSize",function(val)
-						xpcall(function()
-							esplib.options.outOfViewArrowsSize = val
-						end,warn)
-					end)
+				addToggle("Arrows","",false,"ESP",function(val)
+					xpcall(function()
+						esplib.options.outOfViewArrows = val
+					end,warn)
+				end)
 
 
-					addSlider("ESP","Text Size",4,24,32,"EspTextSize",function(val)
-						xpcall(function()
-							esplib.options.fontSize = val
-						end,warn)
-					end)
+				addToggle("Health","",true,"ESP",function(val)
+					xpcall(function()
+						esplib.options.healthBars = val
+					end,warn)
+				end)
+
+				addSlider("ESP","Arrow Size",1,10,48,"EspArrowSize",function(val)
+					xpcall(function()
+						esplib.options.outOfViewArrowsSize = val
+					end,warn)
+				end)
+
+
+				addSlider("ESP","Text Size",4,24,32,"EspTextSize",function(val)
+					xpcall(function()
+						esplib.options.fontSize = val
+					end,warn)
+				end)
 
                 --[[local esparrowscolor = espsec:AddColorpicker("Arrows Color",Color3.fromRGB(60,255,60),function(val)
                     xpcall(function()
@@ -967,168 +966,222 @@ xpcall(function()
                     end,warn)
                 end)]]
 
-					esplib:Load()
+				esplib:Load()
 
-					pcall(function()
-						esplib.options.enabled = true
-						esplib.options.maxDistance = 10000
-						esplib.options.nameColor = Color3.fromRGB(255,255,255)
-						esplib.options.healthText = false
-						esplib.options.healthTextColor = Color3.fromRGB(255,255,255)
-						esplib.options.distance = true
-						esplib.options.distanceColor = Color3.fromRGB(255,255,255)
-						esplib.options.fontSize = 24
-						esplib.options.font = 1
-						esplib.options.healthBarsSize = 2
-						esplib.options.healthBarsColor = Color3.fromRGB(115,255,115)
-						esplib.options.outOfViewArrows = false
-						esplib.options.outOfViewArrowsOutline = false;
-						esplib.options.outOfViewArrowsColor = Color3.fromRGB(255,255,255)
-						esplib.options.outOfViewArrowsSize = 10
-					end)
-				end,warn)
-			end)
-			local camera = workspace.CurrentCamera
-			local runservice = game:GetService("RunService")
-			function esp(drop)
-				local dropesp = Drawing.new("Text")
-				dropesp.Visible = false
-				dropesp.Center = true
-				dropesp.Outline = true
-				dropesp.Font = 2
-				dropesp.Color = Color3.fromRGB(255,255,255)
-				dropesp.Size = 16
-
-				local renderstepped
-				renderstepped = runservice.Heartbeat:Connect(LPH_JIT(function()
-					local suc, err = pcall(function() 
-						if drop and workspace.Live[drop.Name] and drop:FindFirstChild("Humanoid") and drop:FindFirstChild("HumanoidRootPart") then
-							local drop_pos, drop_onscreen = camera:WorldToViewportPoint(drop.HumanoidRootPart.Position)
-							local humanoid = drop.Humanoid
-							if library.flags["Mobs"] and drop_onscreen  then
-								dropesp.Position = Vector2.new(drop_pos.X, drop_pos.Y)
-								dropesp.Text = "[" .. drop.Name .. "]" .. " [" .. math.round(humanoid.Health) .. "/" .. math.round(humanoid.MaxHealth) .. "]"
-								dropesp.Visible = true
-							else 
-								dropesp.Visible = false
-							end
-						else
-							dropesp.Visible = false
-						end 
-					end)
-					pcall(function()
-						if not suc then
-							dropesp.Visible = false
-							dropesp:Remove()
-							renderstepped:Disconnect()
-						end
-					end)
-				end))
-			end
-			pcall(function()
-				workspace.Live.ChildAdded:Connect(function(v)
-					pcall(function()
-						if string.match(v.Name,".") and not Players:GetPlayerFromCharacter(v) then
-							v:WaitForChild("HumanoidRootPart",9e9)
-							esp(v);
-						end
-					end)
+				pcall(function()
+					esplib.options.enabled = true
+					esplib.options.maxDistance = 10000
+					esplib.options.nameColor = Color3.fromRGB(255,255,255)
+					esplib.options.healthText = false
+					esplib.options.healthTextColor = Color3.fromRGB(255,255,255)
+					esplib.options.distance = true
+					esplib.options.distanceColor = Color3.fromRGB(255,255,255)
+					esplib.options.fontSize = 24
+					esplib.options.font = 1
+					esplib.options.healthBarsSize = 2
+					esplib.options.healthBarsColor = Color3.fromRGB(115,255,115)
+					esplib.options.outOfViewArrows = false
+					esplib.options.outOfViewArrowsOutline = false;
+					esplib.options.outOfViewArrowsColor = Color3.fromRGB(255,255,255)
+					esplib.options.outOfViewArrowsSize = 10
 				end)
-				for i, v in pairs(workspace.Live:GetChildren()) do
-					task.spawn(function() 
-						pcall(function()
-							if string.match(v.Name,".") and not Players:GetPlayerFromCharacter(v) then
-								v:WaitForChild("HumanoidRootPart",9e9)
-								esp(v);
-							end
-						end) 
-					end)
+			end,warn)
+		end)
+		local camera = workspace.CurrentCamera
+		local runservice = game:GetService("RunService")
+		function esp(drop)
+			local dropesp = Drawing.new("Text")
+			dropesp.Visible = false
+			dropesp.Center = true
+			dropesp.Outline = true
+			dropesp.Font = 2
+			dropesp.Color = Color3.fromRGB(255,255,255)
+			dropesp.Size = 16
+
+			local renderstepped
+			renderstepped = runservice.Heartbeat:Connect(LPH_JIT(function()
+				local suc, err = pcall(function() 
+					if drop and workspace.Live[drop.Name] and drop:FindFirstChild("Humanoid") and drop:FindFirstChild("HumanoidRootPart") then
+						local drop_pos, drop_onscreen = camera:WorldToViewportPoint(drop.HumanoidRootPart.Position)
+						local humanoid = drop.Humanoid
+						if library.flags["Mobs"] and drop_onscreen  then
+							dropesp.Position = Vector2.new(drop_pos.X, drop_pos.Y)
+							dropesp.Text = "[" .. drop.Name .. "]" .. " [" .. math.round(humanoid.Health) .. "/" .. math.round(humanoid.MaxHealth) .. "]"
+							dropesp.Visible = true
+						else 
+							dropesp.Visible = false
+						end
+					else
+						dropesp.Visible = false
+					end 
+				end)
+				pcall(function()
+					if not suc then
+						dropesp.Visible = false
+						dropesp:Remove()
+						renderstepped:Disconnect()
+					end
+				end)
+			end))
+		end
+		function espa(drop)
+			local dropesp = Drawing.new("Text")
+			dropesp.Visible = false
+			dropesp.Center = true
+			dropesp.Outline = true
+			dropesp.Font = 2
+			dropesp.Color = Color3.fromRGB(255,255,255)
+			dropesp.Size = 16
+
+			local renderstepped
+			renderstepped = runservice.Heartbeat:Connect(function()
+				local suc, err = pcall(function() 
+					if drop then
+						local drop_pos, drop_onscreen = camera:WorldToViewportPoint(drop.Position)
+						if library.flags["Chests"] and drop_onscreen  then
+							dropesp.Position = Vector2.new(drop_pos.X, drop_pos.Y)
+							dropesp.Text = "[Chest]"
+							dropesp.Visible = true
+						else 
+							dropesp.Visible = false
+						end
+					else
+						dropesp.Visible = false
+					end 
+				end)
+				pcall(function()
+					if not suc then
+						dropesp.Visible = false
+						dropesp:Remove()
+						renderstepped:Disconnect()
+					end
+				end)
+			end)
+		end
+
+		for i, v in pairs(workspace.Thrown:GetChildren()) do
+			task.spawn(function()
+				pcall(function()
+					repeat task.wait() until v:FindFirstChild("Lid")
+					if v:FindFirstChild("Lid") then
+						espa(v:FindFirstChild("Lid"))
+					end
+				end)
+			end)
+		end
+		workspace.Thrown.ChildAdded:Connect(function(v)
+			pcall(function()
+				repeat task.wait() until v:FindFirstChild("Lid")
+				if v:FindFirstChild("Lid") then
+
+					espa(v:FindFirstChild("Lid"))						
 				end
 			end)
-			addToggle("Mobs","",true,"ESP",function() end)
-		end,warn) 
-    end)()
+		end)
 
+		workspace.Live.ChildAdded:Connect(function(v)
+			pcall(function()
+				if string.match(v.Name,".") and not Players:GetPlayerFromCharacter(v) then
+					v:WaitForChild("HumanoidRootPart",9e9)
+					esp(v);
+				end
+			end)
+		end)
+		for i, v in pairs(workspace.Live:GetChildren()) do
+			task.spawn(function() 
+				pcall(function()
+					if string.match(v.Name,".") and not Players:GetPlayerFromCharacter(v) then
+						v:WaitForChild("HumanoidRootPart",9e9)
+						esp(v);
+					end
+				end) 
+			end)
+		end
+
+		addToggle("Mobs","",true,"ESP",function() end)
+		addToggle("Chests","",true,"ESP",function() end)
+
+	end,warn) 
 	--
-    local config = game:HttpGet("https://raw.githubusercontent.com/MimiTest2/projectrainfree/main/apdata.json")
-    local data = game:GetService("HttpService"):JSONDecode(config)
-    function roll()
-        keypress(0x51)
-        task.wait(0.05)
-        keyrelease(0x51)
-    end;
-    function parry()
-        keypress(0x46)
-        task.wait(0.05)
-        keyrelease(0x46)
-    end;
-    local animationhandler = function(character,animation)
-        xpcall(function()
-            local anim = tostring(animation.Animation.AnimationId);
-            if data[anim] and library.flags["AP"] then
-                local info = data[anim];
-                if (character:GetPivot().Position - game.Players.LocalPlayer.Character:GetPivot().Position).Magnitude > info.Range then
-                    return;
-                end
-                --print("wait " .. info.Wait .. "ms")
-                if library.flags["APA"] then
-                    info.Wait = info.Wait - game:GetService("Stats"):WaitForChild("PerformanceStats"):WaitForChild("Ping"):GetValue();
-                end
-                info.Wait = info.Wait - library.flags["PA"]/100;
-                if info.Wait < 0 then
-                    info.Wait = 0;
-                end
-                Notify("Waiting " .. info.Wait .. "ms before parrying.");
-                task.wait(info.Wait/1000);
-                Notify("Parrying...");
-                if info.Roll or library.flags["OR"] then
-                    roll();
-                else
-                    parry();
-                end
-                --print("parry normal");
-                if info.RepeatParryAmount and info.RepeatParryAmount > 0 then
-                    for i = 1,info.RepeatParryAmount+1 do
-                        --print("wait " .. info.RepeatParryDelay .. "ms")
-                        Notify("Waiting " .. info.Wait .. "ms before parrying.");
-                        task.wait(info.RepeatParryDelay/1000)
-                        Notify("Parrying...");
-                        --print("repeat parry");
-                        parry();
-                    end
-                end
-            end
-        end,warn)
-    end
-    function charHandler(character)
-        xpcall(function()
-            if character == game:GetService("Players").LocalPlayer.Character then
-                return;
-            end
-            repeat task.wait() until character:FindFirstChild("Humanoid");
-            local humanoid = character:FindFirstChild("Humanoid");
-            humanoid:FindFirstChild("Animator").AnimationPlayed:Connect(function(e)
-                pcall(function()
-                    animationhandler(character,e);
-                end);
-            end);
-        end,warn)
-    end
-    workspace.Live.ChildAdded:Connect(charHandler);
-    for i, v in pairs(workspace.Live:GetChildren()) do
-        task.spawn(function() charHandler(v) end);
-    end
-    addToggle("AP","",false,"Combat",function(val)
-		
+	local config = game:HttpGet("https://raw.githubusercontent.com/MimiTest2/projectrainfree/main/apdata.json")
+	local data = game:GetService("HttpService"):JSONDecode(config)
+	function roll()
+		keypress(0x51)
+		task.wait(0.05)
+		keyrelease(0x51)
+	end;
+	function parry()
+		keypress(0x46)
+		task.wait(0.05)
+		keyrelease(0x46)
+	end;
+	local animationhandler = function(character,animation)
+		xpcall(function()
+			local anim = tostring(animation.Animation.AnimationId);
+			if data[anim] and library.flags["AP"] then
+				local info = data[anim];
+				if (character:GetPivot().Position - game.Players.LocalPlayer.Character:GetPivot().Position).Magnitude > info.Range then
+					return;
+				end
+				--print("wait " .. info.Wait .. "ms")
+				if library.flags["APA"] then
+					info.Wait = info.Wait - game:GetService("Stats"):WaitForChild("PerformanceStats"):WaitForChild("Ping"):GetValue();
+				end
+				info.Wait = info.Wait - library.flags["PA"]/100;
+				if info.Wait < 0 then
+					info.Wait = 0;
+				end
+				Notify("Waiting " .. info.Wait .. "ms before parrying.");
+				task.wait(info.Wait/1000);
+				Notify("Parrying...");
+				if info.Roll or library.flags["OR"] then
+					roll();
+				else
+					parry();
+				end
+				--print("parry normal");
+				if info.RepeatParryAmount and info.RepeatParryAmount > 0 then
+					for i = 1,info.RepeatParryAmount+1 do
+						--print("wait " .. info.RepeatParryDelay .. "ms")
+						Notify("Waiting " .. info.Wait .. "ms before parrying.");
+						task.wait(info.RepeatParryDelay/1000)
+						Notify("Parrying...");
+						--print("repeat parry");
+						parry();
+					end
+				end
+			end
+		end,warn)
+	end
+	function charHandler(character)
+		xpcall(function()
+			if character == game:GetService("Players").LocalPlayer.Character then
+				return;
+			end
+			repeat task.wait() until character:FindFirstChild("Humanoid");
+			local humanoid = character:FindFirstChild("Humanoid");
+			humanoid:FindFirstChild("Animator").AnimationPlayed:Connect(function(e)
+				pcall(function()
+					animationhandler(character,e);
+				end);
+			end);
+		end,warn)
+	end
+	workspace.Live.ChildAdded:Connect(charHandler);
+	for i, v in pairs(workspace.Live:GetChildren()) do
+		task.spawn(function() charHandler(v) end);
+	end
+	addToggle("AP","",false,"Combat",function(val)
+
 	end)
-    addSlider("Combat","PA",-25,0,100,"PA");
-    addToggle("APA","",true,"Combat",function(val)
-		
+	addSlider("Combat","PA",-25,0,100,"PA");
+	addToggle("APA","",true,"Combat",function(val)
+
 	end)
 
-    addToggle("OR","",false,"Combat",function(val)
-		
+	addToggle("OR","",false,"Combat",function(val)
+
 	end)
 	LoadingText:Destroy()
-		Notify("To remove this notification. Click it. To open tabs. right click them " .. player.Name,9e9)
+	Notify("To remove this notification. Click it. To open tabs. right click them " .. player.Name,9e9)
 end,warn)
