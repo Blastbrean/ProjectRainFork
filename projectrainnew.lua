@@ -1,23 +1,6 @@
 
 
 xpcall(function()
-	pcall(function()
-		local uis = game:GetService("UserInputService")
-		uis.InputBegan:Connect(function(input,t)
-			pcall(function()
-				if input.UserInputType == Enum.UserInputType.MouseButton1 then
-					for i, v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.LeaderboardGui.MainFrame.ScrollingFrame:GetChildren()) do
-						if not v:FindFirstChild("Player") then continue; end
-						local Player = v.Player;
-
-						if Player.TextTransparency > 0 then
-							while v.Player.TextTransparency > 0 do workspace.CurrentCamera.CameraSubject = Players[v.Player.Text].Character task.wait() end
-						end
-					end
-				end
-			end)
-		end)
-	end)
 	local Lighting = game:GetService("Lighting")
 
 	local GetChildren, GetDescendants = game.GetChildren, game.GetDescendants
@@ -318,7 +301,23 @@ xpcall(function()
 	local uis = game:GetService("UserInputService");
 	local library = loadstring(uilib)();
 	local partids = {};
+    pcall(function()
+		local uis = game:GetService("UserInputService")
+		uis.InputBegan:Connect(function(input,t)
+			pcall(function()
+				if input.UserInputType == Enum.UserInputType.MouseButton1 then
+					for i, v in pairs(plr.PlayerGui.LeaderboardGui.MainFrame.ScrollingFrame:GetChildren()) do
+						if not v:FindFirstChild("Player") then continue; end
+						local Player = v.Player;
 
+						if Player.TextTransparency > 0 then
+							while v.Player.TextTransparency > 0 do workspace.CurrentCamera.CameraSubject = Players[v.Player.Text].Character task.wait() end
+						end
+					end
+				end
+			end)
+		end)
+	end)
 	if pgui:FindFirstChild("LoadingGui") then
 		Notify("Project Rain will not run in menu, please spawn in!")
 		repeat wait() until not pgui:FindFirstChild("LoadingGui")
@@ -657,20 +656,21 @@ xpcall(function()
 	end,true,Enum.KeyCode.F4,"Flight");
 	addSlider("Movement","Walk Speed",1,150,250,"Walk Speed");
 	addSlider("Movement","Flight Speed",1,150,250,"Flight Speed");
-	getgenv().agilityspooferenabled = false
-	addToggle("Agility Spoofer","",false,"Movement",function(val)
-		getgenv().agilityspooferenabled = val
-
-		task.spawn(function()
-			while getgenv().agilityspooferenabled == true do
-				wait()
-				pcall(function()
-					plr.Character.Agility.Value = library.flags["Agility"]
-				end)
-			end
-		end)
-	end)
-	addSlider("Movement","Agility",1,35,100,"Agility")
+    --patched as of 6/11/2023
+	--getgenv().agilityspooferenabled = false
+	--addToggle("Agility Spoofer","",false,"Movement",function(val)
+	--	getgenv().agilityspooferenabled = val
+--
+	--	task.spawn(function()
+	--		while getgenv().agilityspooferenabled == true do
+	--			wait()
+	--			pcall(function()
+	--				plr.Character.Agility.Value = library.flags["Agility"]
+	--			end)
+	--		end
+	--	end)
+	--end)
+	--addSlider("Movement","Agility",1,35,100,"Agility")
 
 	spoofedAirDashFolder = nil
 	addToggle("Dash+","",false,"Movement",function(val)
@@ -1118,9 +1118,9 @@ xpcall(function()
 	local animationhandler = function(character,animation)
 		xpcall(function()
 			local anim = tostring(animation.Animation.AnimationId);
-			if data[anim] and library.flags["AP"] then
+			if data[anim] then
 				local info = data[anim];
-				if (character:GetPivot().Position - game.Players.LocalPlayer.Character:GetPivot().Position).Magnitude > info.Range then
+				if (character:GetPivot().Position - plr.Character:GetPivot().Position).Magnitude > info.Range then
 					return;
 				end
 				--print("wait " .. info.Wait .. "ms")
@@ -1150,21 +1150,30 @@ xpcall(function()
 						parry();
 					end
 				end
-			end
+			else
+                if not library.flags["APD"] or (character:GetPivot().Position - plr.Character:GetPivot().Position).Magnitude > 50 then
+					return;
+				end
+                Notify("Unrecognized anim: " .. anim)
+            end
 		end,warn)
 	end
 	function charHandler(character)
 		xpcall(function()
-			if character == game:GetService("Players").LocalPlayer.Character then
+			if character == plr.Character then
 				return;
 			end
 			repeat task.wait() until character:FindFirstChild("Humanoid");
 			local humanoid = character:FindFirstChild("Humanoid");
-			humanoid:FindFirstChild("Animator").AnimationPlayed:Connect(function(e)
+			local animationPlayedConnection = humanoid:FindFirstChild("Animator").AnimationPlayed:Connect(function(e)
 				pcall(function()
-					animationhandler(character,e);
+                    if library.flags["AP"] then
+					    animationhandler(character,e);
+                    end
 				end);
 			end);
+            repeat task.wait(5) until character.Parent ~= workspace:FindFirstChild("Live");
+            animationPlayedConnection:Disconnect();
 		end,warn)
 	end
 	workspace.Live.ChildAdded:Connect(charHandler);
@@ -1175,6 +1184,9 @@ xpcall(function()
 
 	end)
 	addSlider("Combat","PA",-25,0,100,"PA");
+    addToggle("APD","",true,"Combat",function(val)
+
+	end)
 	addToggle("APA","",true,"Combat",function(val)
 
 	end)
