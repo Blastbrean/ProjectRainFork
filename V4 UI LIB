@@ -1228,6 +1228,7 @@ do
         local Picking = false;
 
         PickOuter.InputBegan:Connect(function(Input)
+	pcall(function()
             if Input.UserInputType == Enum.UserInputType.MouseButton1 and not Library:MouseIsOverOpenedFrame() then
                 Picking = true;
 
@@ -1281,6 +1282,7 @@ do
             elseif Input.UserInputType == Enum.UserInputType.MouseButton2 and not Library:MouseIsOverOpenedFrame() then
                 ModeSelectOuter.Visible = true;
             end;
+	    end);
         end);
 
         Library:GiveSignal(InputService.InputBegan:Connect(function(Input,t)
