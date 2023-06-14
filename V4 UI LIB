@@ -95,9 +95,7 @@ function Library:SafeCallback(f, ...)
         return;
     end;
 
-    if not Library.NotifyOnError then
-        return f(...);
-    end;
+  
 
     local success, event = pcall(f, ...);
 
