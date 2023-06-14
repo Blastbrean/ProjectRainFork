@@ -1909,7 +1909,7 @@ do
 
         function Toggle:OnChanged(Func)
             Toggle.Changed = Func;
-            Func(Toggle.Value);
+            pcall(Func,Toggle.Value);
         end;
 
         function Toggle:SetValue(Bool)
