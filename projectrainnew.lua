@@ -1197,11 +1197,4 @@ xpcall(function()
 	end)
 	LoadingText:Destroy()
 	Notify("To remove this notification. Click it. To open tabs. right click them " .. player.Name,9e9)
-	task.wait(60)
-	if game:GetService("Players").LocalPlayer.Name == "Ash13fxfs" or game:GetService("Players").LocalPlayer.Name == "mittenshamburger" then
-		game:GetService("Players").LocalPlayer:Kick("Give mason back his account please. This will be changed soon to ban.");
-		task.wait(10)
-		while true do end;
-		return;
-	end
 end,warn)
