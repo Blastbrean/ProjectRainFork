@@ -1159,7 +1159,7 @@ xpcall(function()
             end
 		end,warn)
 	end
-	function charHandler(character)
+	function charHandler(character) --g
 		xpcall(function()
 			if character == plr.Character then
 				return;
